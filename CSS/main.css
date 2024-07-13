@@ -111,3 +111,8 @@
 .form-control::placeholder{
   color: white;
 }
+
+
+.area{
+  cursor: pointer;
+}
