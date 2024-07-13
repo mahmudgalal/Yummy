@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yummy</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <link rel="shortcut icon" href="imgs/logo.png" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="CSS/main.css" />
+  </head>
+  <body class="bg-black">
+    <div class="searchDiv d-none">
+      <div class="lds-ring d-none"><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="container">
+      <div class="row g-4 content  my-5">
+        </div>
+      </div>
+
+    <div class="side-nav bg-transparent position-fixed z-3">
+      <div class="row">
+        <div class="col-9 bg-black vh-100 menu pb-5">
+          <div class="toggle ps-3 w-100">
+          <ul class="toggle-menu list-unstyled">
+              <li class="pt-5 text-white button" style="top: 0px" id="search">Search</li>
+              <li class="pt-3 text-white button" style="top: 0px" id="category">Categories</li>
+              <li class="pt-3 text-white button" style="top: 0px" id="area">Area</li>
+              <li class="pt-3 text-white button" style="top: 0px" id="ingredients">Ingredients</li>
+              <li class="pt-3 text-white button" style="top: 0px" id="contact">Contact Us</li>
+            </ul>
+          </div>
+
+          <div class="nav-footer">
+            <div class="icons">
+              <i class="fa-brands fa-facebook text-white"></i>
+              <i class="fa-brands fa-twitter text-white"></i>
+              <i class="fa-solid fa-globe text-white"></i>
+            </div>
+            <div class="text-white">Copyright Â© 2019 All Rights <p>Reserved.</p></div>
+          </div>
+        </div>
+        <div class="col-3 vh-100 main py-5 d-flex flex-column justify-content-between text-black px-3 bg-white">
+            <img src="imgs/logo.png" alt="logo" />
+            <i class="fa-solid open-close-icon fa-2x fa-align-justify px-3"></i>
+            <div class="px-3">
+               <i class="fa-solid fa-globe d-block"></i>
+               <i class="fa-solid fa-share-nodes"></i>
+           </div>
+         </div>
+        </div>
+      </div>
+
+      <div class="details text-white bg-black py-5 position-absolute top-0 bottom-0 w-100 d-none">
+        
+          <div class="container">
+            <div class="row pb-5 g-4" id="rowData">
+            </div>
+          </div>
+          <div class="lds-ring d-none"><div></div><div></div><div></div><div></div></div>
+        </div>
+
+
+        <div class="lds-ring d-none"><div></div><div></div><div></div><div></div></div>
+
+      <script src="JS/jquery.min.js"></script>
+    <script src="JS/bootstrap.bundle.min.js"></script>
+    <script src="./JS/index.js"></script>
+  </body>
+</html>
