@@ -25,7 +25,6 @@ async function fetchData() {
     );
     const res = await response.json();
     const meals = res.meals;
-    meals.splice(20);
     display(meals);
   } catch {
     throw (Error = console.log("the api is incorrect"));
@@ -131,14 +130,20 @@ const display = async function (meals) {
 
 fetchData();
 
+
+
+
+// Search Section
+
 const serachDiv = document.querySelector(".searchDiv");
 const searchFunction = function () {
   content.innerHTML = "";
   serachDiv.classList.remove("d-none");
+  $(".details").addClass("d-none");
   serachDiv.innerHTML = `<div class="container w-75" id="searchContainer">
   <div class="row py-4 ">
   <div class="col-md-6 ">
-  <input class="form-control bg-transparent text-white name" type="text" placeholder="Search By Name">
+  <input class="form-control bg-transparent text-white name mb-3" type="text" placeholder="Search By Name">
   </div>
   <div class="col-md-6">
   <input maxlength="1" class="form-control bg-transparent text-white letter" type="text" placeholder="Search By First Letter">
@@ -175,9 +180,6 @@ const searchFunction = function () {
     }
   });
 };
-search.addEventListener("click", searchFunction);
-
-
 const errorSearch = function(){
   content.innerHTML = `
   <div class="border border-danger border-2 py-5 px-3 w-50 text-center mx-auto invalid">
@@ -185,3 +187,17 @@ const errorSearch = function(){
   </div>
   `;
 }
+search.addEventListener("click", searchFunction);
+
+
+
+
+// Category Section
+const categoryFunction = function(){
+  serachDiv.classList.add("d-none");
+  content.innerHTML = "";
+  
+}
+
+
+category.addEventListener("click" , categoryFunction)
