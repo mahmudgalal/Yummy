@@ -139,7 +139,7 @@ const searchFunction = function () {
   serachDiv.classList.remove("d-none");
   animation();
   serachDiv.innerHTML = `<div class="container w-75" id="searchContainer">
-  <div class="row py-4 ">
+  <div class="row py-4 ms-5">
   <div class="col-md-6 ">
   <input class="form-control bg-transparent text-white name mb-3" type="text" placeholder="Search By Name">
   </div>
@@ -365,7 +365,7 @@ const areaFunction = async function () {
   $(".lds-ring").addClass("d-none");
   areas.forEach((area) => {
     const html = `
-        <div class="col-md-3">
+        <div class="col-6 col-md-4 col-lg-3">
                 <div class="rounded-2 text-center area text-white">
                         <i class="fa-solid fa-house-laptop fa-4x"></i>
                         <h3>${area.strArea}</h3>
