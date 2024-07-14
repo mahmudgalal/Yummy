@@ -5,6 +5,7 @@ const category = document.getElementById("category");
 const area = document.getElementById("area");
 const ingredients = document.getElementById("ingredients");
 const contact = document.getElementById("contact");
+const content = document.querySelector(".content");
 
 const animation = function () {
   $(".menu")
@@ -16,7 +17,86 @@ const animation = function () {
 
 $(".open-close-icon").on("click", animation);
 
-const content = document.querySelector(".content");
+const inner = function(meal){
+  const mealId = document.querySelector(".meal");
+  mealId.addEventListener("click", async function () {
+    serachDiv.classList.add("d-none")
+    content.innerHTML = "";
+    $(".lds-ring").removeClass("d-none");
+    try {
+      const mealResponse = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
+      );
+      const mealRes = await mealResponse.json();
+      const meals = mealRes.meals
+      const html = `
+   <div class="col-md-4 text-white">
+                <img class="w-100 rounded-3" src=${meals[0].strMealThumb} alt="">
+                    <h2>${meals[0].strMeal}</h2>
+            </div>
+            <div class="col-md-8 text-white">
+                <h2>Instructions</h2>
+                <p>${meals[0].strInstructions}
+</p>
+                <h3><span class="fw-bolder">Area : </span>${meals[0].strArea}</h3>
+                <h3><span class="fw-bolder">Category : </span>${
+                  meals[0].strCategory
+                }</h3>
+                <h3>Recipes :</h3>
+                <ul class="list-unstyled d-flex g-3 flex-wrap">
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure1
+                    } ${meals[0].strIngredient1}</li>
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure2
+                    } ${meals[0].strIngredient2}</li>
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure3
+                    } ${meals[0].strIngredient3}</li>
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure4
+                    } ${meals[0].strIngredient4}</li>
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure5
+                    } ${meals[0].strIngredient5}</li>
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure6
+                    } ${meals[0].strIngredient6}</li>
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure7
+                    } ${meals[0].strIngredient7}</li>
+                    <li class="alert alert-info m-2 p-1">${
+                      meals[0].strMeasure8
+                    } ${meals[0].strIngredient8}</li>
+                </ul>
+
+                <h3>Tags :</h3>
+                <ul class="list-unstyled d-flex g-3 flex-wrap">
+                     <li class="alert alert-danger m-2 p-1 px-2">${
+                       meals[0].strTags ? meals[0].strTags : "No Tags"
+                     }</li>
+
+
+                </ul>
+
+                <a target="_blank" href=${
+                  meals[0].strSource
+                } class="btn btn-success">Source</a>
+                <a target="_blank" href=${
+                  meals[0].strYoutube
+                } class="btn btn-danger">Youtube</a>
+            </div>
+            </div>
+            `;
+      content.insertAdjacentHTML("afterbegin", html);
+    } catch {
+      throw Error("the api is incorrect");
+    } finally {
+      $(".lds-ring").addClass("d-none");
+    }
+  });
+}
+
 
 async function fetchData() {
   content.innerHTML = "";
@@ -49,83 +129,10 @@ const display = async function (meals) {
        </div>
   `;
     content.insertAdjacentHTML("afterbegin", html);
-    const mealId = document.querySelector(".meal");
     const rowData = document.getElementById("rowData");
 
-    mealId.addEventListener("click", async function () {
-      content.innerHTML = "";
-      $(".lds-ring").removeClass("d-none");
-      try {
-        const mealResponse = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
-        );
-        const mealRes = await mealResponse.json();
-        const html = `
-     <div class="col-md-4 text-white">
-                  <img class="w-100 rounded-3" src=${meal.strMealThumb} alt="">
-                      <h2>${meal.strMeal}</h2>
-              </div>
-              <div class="col-md-8 text-white">
-                  <h2>Instructions</h2>
-                  <p>${meal.strInstructions}
-  </p>
-                  <h3><span class="fw-bolder">Area : </span>${meal.strArea}</h3>
-                  <h3><span class="fw-bolder">Category : </span>${
-                    meal.strCategory
-                  }</h3>
-                  <h3>Recipes :</h3>
-                  <ul class="list-unstyled d-flex g-3 flex-wrap">
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure1
-                      } ${meal.strIngredient1}</li>
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure2
-                      } ${meal.strIngredient2}</li>
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure3
-                      } ${meal.strIngredient3}</li>
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure4
-                      } ${meal.strIngredient4}</li>
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure5
-                      } ${meal.strIngredient5}</li>
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure6
-                      } ${meal.strIngredient6}</li>
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure7
-                      } ${meal.strIngredient7}</li>
-                      <li class="alert alert-info m-2 p-1">${
-                        meal.strMeasure8
-                      } ${meal.strIngredient8}</li>
-                  </ul>
-  
-                  <h3>Tags :</h3>
-                  <ul class="list-unstyled d-flex g-3 flex-wrap">
-                       <li class="alert alert-danger m-2 p-1 px-2">${
-                         meal.strTags ? meal.strTags : "No Tags"
-                       }</li>
-
-
-                  </ul>
-  
-                  <a target="_blank" href=${
-                    meal.strSource
-                  } class="btn btn-success">Source</a>
-                  <a target="_blank" href=${
-                    meal.strYoutube
-                  } class="btn btn-danger">Youtube</a>
-              </div>
-              </div>
-              `;
-        content.insertAdjacentHTML("afterbegin", html);
-      } catch {
-        throw Error("the api is incorrect");
-      } finally {
-        $(".lds-ring").addClass("d-none");
-      }
-    });
+ 
+    inner(meal);
   });
 };
 
@@ -251,89 +258,7 @@ const categoryFunction = async function () {
           `;
             content.insertAdjacentHTML("afterbegin", html);
 
-            const mealId = document.querySelector(".meal");
-            mealId.addEventListener("click", async function () {
-              content.innerHTML = "";
-              $(".lds-ring").removeClass("d-none");
-              try {
-                const response = await fetch(
-                  `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
-                );
-                const res = await response.json();
-                const meals = res.meals;
-                meals.splice(20);
-                meals.forEach((meal) => {
-                  const html = `
-       <div class="col-md-4 text-white">
-                    <img class="w-100 rounded-3" src=${
-                      meal.strMealThumb
-                    } alt="">
-                        <h2>${meal.strMeal}</h2>
-                </div>
-                <div class="col-md-8 text-white">
-                    <h2>Instructions</h2>
-                    <p>${meal.strInstructions}
-    </p>
-                    <h3><span class="fw-bolder">Area : </span>${
-                      meal.strArea
-                    }</h3>
-                    <h3><span class="fw-bolder">Category : </span>${
-                      meal.strCategory
-                    }</h3>
-                    <h3>Recipes :</h3>
-                    <ul class="list-unstyled d-flex g-3 flex-wrap">
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure1
-                        } ${meal.strIngredient1}</li>
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure2
-                        } ${meal.strIngredient2}</li>
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure3
-                        } ${meal.strIngredient3}</li>
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure4
-                        } ${meal.strIngredient4}</li>
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure5
-                        } ${meal.strIngredient5}</li>
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure6
-                        } ${meal.strIngredient6}</li>
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure7
-                        } ${meal.strIngredient7}</li>
-                        <li class="alert alert-info m-2 p-1">${
-                          meal.strMeasure8
-                        } ${meal.strIngredient8}</li>
-                    </ul>
-    
-                    <h3>Tags :</h3>
-                    <ul class="list-unstyled d-flex g-3 flex-wrap">
-                         <li class="alert alert-danger m-2 p-1 px-2">${
-                           meal.strTags ? meal.strTags : "No Tags"
-                         }</li>
-  
-  
-                    </ul>
-    
-                    <a target="_blank" href=${
-                      meal.strSource
-                    } class="btn btn-success">Source</a>
-                    <a target="_blank" href=${
-                      meal.strYoutube
-                    } class="btn btn-danger">Youtube</a>
-                </div>
-                </div>
-                `;
-                  content.insertAdjacentHTML("afterbegin", html);
-                });
-              } catch {
-                throw Error("Invalid API");
-              } finally {
-                $(".lds-ring").addClass("d-none");
-              }
-            });
+           inner(meal);
           });
         });
       } catch {
@@ -400,89 +325,7 @@ const areaFunction = async function () {
       `;
         content.insertAdjacentHTML("afterbegin", html);
         $(".invalid").addClass("d-none");
-        const mealId = document.querySelector(".meal");
-        mealId.addEventListener("click", async function () {
-          content.innerHTML = "";
-          $(".lds-ring").removeClass("d-none");
-          try {
-            const response = await fetch(
-              `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
-            );
-            const res = await response.json();
-            const meals = res.meals;
-            meals.splice(20);
-            meals.forEach((meal) => {
-              const html = `
-         <div class="col-md-4 text-white">
-                      <img class="w-100 rounded-3" src=${
-                        meal.strMealThumb
-                      } alt="">
-                          <h2>${meal.strMeal}</h2>
-                  </div>
-                  <div class="col-md-8 text-white">
-                      <h2>Instructions</h2>
-                      <p>${meal.strInstructions}
-      </p>
-                      <h3><span class="fw-bolder">Area : </span>${
-                        meal.strArea
-                      }</h3>
-                      <h3><span class="fw-bolder">Category : </span>${
-                        meal.strCategory
-                      }</h3>
-                      <h3>Recipes :</h3>
-                      <ul class="list-unstyled d-flex g-3 flex-wrap">
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure1
-                          } ${meal.strIngredient1}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure2
-                          } ${meal.strIngredient2}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure3
-                          } ${meal.strIngredient3}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure4
-                          } ${meal.strIngredient4}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure5
-                          } ${meal.strIngredient5}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure6
-                          } ${meal.strIngredient6}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure7
-                          } ${meal.strIngredient7}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure8
-                          } ${meal.strIngredient8}</li>
-                      </ul>
-      
-                      <h3>Tags :</h3>
-                      <ul class="list-unstyled d-flex g-3 flex-wrap">
-                           <li class="alert alert-danger m-2 p-1 px-2">${
-                             meal.strTags ? meal.strTags : "No Tags"
-                           }</li>
-    
-    
-                      </ul>
-      
-                      <a target="_blank" href=${
-                        meal.strSource
-                      } class="btn btn-success">Source</a>
-                      <a target="_blank" href=${
-                        meal.strYoutube
-                      } class="btn btn-danger">Youtube</a>
-                  </div>
-                  </div>
-                  `;
-              content.insertAdjacentHTML("afterbegin", html);
-            });
-          } catch {
-            throw Error("Invalid API");
-          } finally {
-            $(".lds-ring").addClass("d-none");
-          }
-        });
+        inner(meal);
       });
     });
   });
@@ -544,88 +387,8 @@ const ingFunction = async function () {
         content.insertAdjacentHTML("afterbegin", html);
         $(".invalid").addClass("d-none");
         const mealId = document.querySelector(".meal");
-        mealId.addEventListener("click", async function () {
-          content.innerHTML = "";
-          $(".lds-ring").removeClass("d-none");
-          try {
-            const response = await fetch(
-              `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
-            );
-            const res = await response.json();
-            const meals = res.meals;
-            meals.splice(20);
-            meals.forEach((meal) => {
-              const html = `
-         <div class="col-md-4 text-white">
-                      <img class="w-100 rounded-3" src=${
-                        meal.strMealThumb
-                      } alt="">
-                          <h2>${meal.strMeal}</h2>
-                  </div>
-                  <div class="col-md-8 text-white">
-                      <h2>Instructions</h2>
-                      <p>${meal.strInstructions}
-      </p>
-                      <h3><span class="fw-bolder">Area : </span>${
-                        meal.strArea
-                      }</h3>
-                      <h3><span class="fw-bolder">Category : </span>${
-                        meal.strCategory
-                      }</h3>
-                      <h3>Recipes :</h3>
-                      <ul class="list-unstyled d-flex g-3 flex-wrap">
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure1
-                          } ${meal.strIngredient1}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure2
-                          } ${meal.strIngredient2}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure3
-                          } ${meal.strIngredient3}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure4
-                          } ${meal.strIngredient4}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure5
-                          } ${meal.strIngredient5}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure6
-                          } ${meal.strIngredient6}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure7
-                          } ${meal.strIngredient7}</li>
-                          <li class="alert alert-info m-2 p-1">${
-                            meal.strMeasure8
-                          } ${meal.strIngredient8}</li>
-                      </ul>
-      
-                      <h3>Tags :</h3>
-                      <ul class="list-unstyled d-flex g-3 flex-wrap">
-                           <li class="alert alert-danger m-2 p-1 px-2">${
-                             meal.strTags ? meal.strTags : "No Tags"
-                           }</li>
-    
-    
-                      </ul>
-      
-                      <a target="_blank" href=${
-                        meal.strSource
-                      } class="btn btn-success">Source</a>
-                      <a target="_blank" href=${
-                        meal.strYoutube
-                      } class="btn btn-danger">Youtube</a>
-                  </div>
-                  </div>
-                  `;
-              content.insertAdjacentHTML("afterbegin", html);
-            });
-          } catch {
-            throw Error("Invalid API");
-          } finally {
-            $(".lds-ring").addClass("d-none");
-          }
-        });
+        inner(meal);
+
       });
     });
   });
