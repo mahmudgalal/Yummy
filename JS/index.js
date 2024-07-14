@@ -17,7 +17,7 @@ const animation = function () {
 
 $(".open-close-icon").on("click", animation);
 
-const inner = function(meal){
+const details = function(meal){
   const mealId = document.querySelector(".meal");
   mealId.addEventListener("click", async function () {
     serachDiv.classList.add("d-none")
@@ -107,6 +107,7 @@ async function fetchData() {
     );
     const res = await response.json();
     const meals = res.meals;
+    meals.reverse();
     display(meals);
   } catch {
     throw Error("the api is incorrect");
@@ -132,7 +133,7 @@ const display = async function (meals) {
     const rowData = document.getElementById("rowData");
 
  
-    inner(meal);
+    details(meal);
   });
 };
 
@@ -166,6 +167,7 @@ const searchFunction = function () {
       const res = await response.json();
       const meals = res.meals;
       meals.splice(20);
+      meals.reverse();
       display(meals);
       $(".invalid").addClass("d-none");
     } catch {
@@ -215,6 +217,7 @@ const categoryFunction = async function () {
     );
     const res = await response.json();
     const categories = res.categories;
+    categories.reverse();
     categories.forEach((category) => {
       const html = `
              <div class="col-md-6 col-lg-4 col-xl-3 main position-relative">
@@ -258,7 +261,7 @@ const categoryFunction = async function () {
           `;
             content.insertAdjacentHTML("afterbegin", html);
 
-           inner(meal);
+           details(meal);
           });
         });
       } catch {
@@ -287,6 +290,7 @@ const areaFunction = async function () {
   );
   const res = await response.json();
   const areas = res.meals;
+  areas.reverse();
   $(".lds-ring").addClass("d-none");
   areas.forEach((area) => {
     const html = `
@@ -325,7 +329,7 @@ const areaFunction = async function () {
       `;
         content.insertAdjacentHTML("afterbegin", html);
         $(".invalid").addClass("d-none");
-        inner(meal);
+        details(meal);
       });
     });
   });
@@ -346,6 +350,7 @@ const ingFunction = async function () {
   const res = await response.json();
   const ings = res.meals;
   ings.splice(20);
+  ings.reverse();
   $(".lds-ring").addClass("d-none");
   ings.forEach((ing) => {
     const html = `
@@ -387,7 +392,7 @@ const ingFunction = async function () {
         content.insertAdjacentHTML("afterbegin", html);
         $(".invalid").addClass("d-none");
         const mealId = document.querySelector(".meal");
-        inner(meal);
+        details(meal);
 
       });
     });
