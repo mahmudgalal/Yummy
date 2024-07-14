@@ -116,3 +116,11 @@
 .area{
   cursor: pointer;
 }
+
+.ingDes{
+  height: 150px;
+}
+
+.contact input::placeholder{
+  color: black;
+}

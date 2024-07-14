@@ -3,7 +3,7 @@
 const search = document.getElementById("search");
 const category = document.getElementById("category");
 const area = document.getElementById("area");
-const ingredientes = document.getElementById("ingredientes");
+const ingredients = document.getElementById("ingredients");
 const contact = document.getElementById("contact");
 
 const animation = function () {
@@ -163,10 +163,8 @@ const searchFunction = function () {
       $(".invalid").addClass("d-none");
     } catch {
       errorSearch();
-    }
-    finally{
+    } finally {
       $(".lds-ring").addClass("d-none");
-
     }
   });
   letter.addEventListener("keyup", async function () {
@@ -183,10 +181,8 @@ const searchFunction = function () {
       $(".invalid").addClass("d-none");
     } catch {
       errorSearch();
-    }
-    finally{
+    } finally {
       $(".lds-ring").addClass("d-none");
-
     }
   });
 };
@@ -204,7 +200,7 @@ const categoryFunction = async function () {
   serachDiv.classList.add("d-none");
   content.innerHTML = "";
   animation();
- 
+
   try {
     $(".lds-ring").removeClass("d-none");
     const response = await fetch(
@@ -227,19 +223,19 @@ const categoryFunction = async function () {
          </div>
     `;
       content.insertAdjacentHTML("afterbegin", html);
-    $(".invalid").addClass("d-none");
-    try {
-    const main = document.querySelector(".main");
-    main.addEventListener("click" , async function(){
-      content.innerHTML = "";
-        $(".lds-ring").removeClass("d-none");
-        const response = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category.strCategory}`
-        );
-        const res = await response.json();
-        $(".lds-ring").addClass("d-none");
-        const meals = res.meals;
-        meals.splice(20);
+      $(".invalid").addClass("d-none");
+      try {
+        const main = document.querySelector(".main");
+        main.addEventListener("click", async function () {
+          content.innerHTML = "";
+          $(".lds-ring").removeClass("d-none");
+          const response = await fetch(
+            `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category.strCategory}`
+          );
+          const res = await response.json();
+          $(".lds-ring").addClass("d-none");
+          const meals = res.meals;
+          meals.splice(20);
           meals.forEach((meal) => {
             const html = `
                    <div class="col-md-6 col-lg-4 col-xl-3 main position-relative">
@@ -256,7 +252,7 @@ const categoryFunction = async function () {
             content.insertAdjacentHTML("afterbegin", html);
 
             const mealId = document.querySelector(".meal");
-            mealId.addEventListener("click" , async function(){
+            mealId.addEventListener("click", async function () {
               content.innerHTML = "";
               $(".lds-ring").removeClass("d-none");
               try {
@@ -269,14 +265,18 @@ const categoryFunction = async function () {
                 meals.forEach((meal) => {
                   const html = `
        <div class="col-md-4 text-white">
-                    <img class="w-100 rounded-3" src=${meal.strMealThumb} alt="">
+                    <img class="w-100 rounded-3" src=${
+                      meal.strMealThumb
+                    } alt="">
                         <h2>${meal.strMeal}</h2>
                 </div>
                 <div class="col-md-8 text-white">
                     <h2>Instructions</h2>
                     <p>${meal.strInstructions}
     </p>
-                    <h3><span class="fw-bolder">Area : </span>${meal.strArea}</h3>
+                    <h3><span class="fw-bolder">Area : </span>${
+                      meal.strArea
+                    }</h3>
                     <h3><span class="fw-bolder">Category : </span>${
                       meal.strCategory
                     }</h3>
@@ -326,51 +326,40 @@ const categoryFunction = async function () {
                 </div>
                 </div>
                 `;
-          content.insertAdjacentHTML("afterbegin", html);
-                })
-                
+                  content.insertAdjacentHTML("afterbegin", html);
+                });
               } catch {
-                throw Error("Invalid API") 
-              }
-              finally{
+                throw Error("Invalid API");
+              } finally {
                 $(".lds-ring").addClass("d-none");
               }
-            })
-      })
-     
-
-    })
-
+            });
+          });
+        });
+      } catch {
+        throw Error("The API is Invalid");
+      } finally {
+        $(".lds-ring").addClass("d-none");
+      }
+    });
   } catch {
     throw Error("The API is Invalid");
-
-  }finally{
+  } finally {
     $(".lds-ring").addClass("d-none");
-
   }
-  })
-
- } catch {
-    throw Error("The API is Invalid");
-  }finally{
-    $(".lds-ring").addClass("d-none");
-
-  }
-}
-;
+};
 category.addEventListener("click", categoryFunction);
 
-
-
-
 // Area Section
-const areaFunction = async function () { 
+const areaFunction = async function () {
   serachDiv.classList.add("d-none");
-  content.innerHTML = ""
+  content.innerHTML = "";
   animation();
   $(".lds-ring").removeClass("d-none");
-  
-  const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
+
+  const response = await fetch(
+    "https://www.themealdb.com/api/json/v1/1/list.php?a=list"
+  );
   const res = await response.json();
   const areas = res.meals;
   $(".lds-ring").addClass("d-none");
@@ -381,15 +370,17 @@ const areaFunction = async function () {
                         <i class="fa-solid fa-house-laptop fa-4x"></i>
                         <h3>${area.strArea}</h3>
                 </div>
-    `
+    `;
 
-    content.insertAdjacentHTML("afterbegin" , html);
-    const location = document.querySelector(".area")
+    content.insertAdjacentHTML("afterbegin", html);
+    const location = document.querySelector(".area");
 
-    location.addEventListener("click" , async function(){
+    location.addEventListener("click", async function () {
       content.innerHTML = "";
       $(".lds-ring").removeClass("d-none");
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area.strArea}`);
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area.strArea}`
+      );
       const res = await response.json();
       const meals = res.meals;
       $(".lds-ring").addClass("d-none");
@@ -408,29 +399,33 @@ const areaFunction = async function () {
            </div>
       `;
         content.insertAdjacentHTML("afterbegin", html);
-      $(".invalid").addClass("d-none");
-      const mealId = document.querySelector(".meal");
-              mealId.addEventListener("click" , async function(){
-                content.innerHTML = "";
-                $(".lds-ring").removeClass("d-none");
-                try {
-                  const response = await fetch(
-                    `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
-                  );
-                  const res = await response.json();
-                  const meals = res.meals;
-                  meals.splice(20);
-                  meals.forEach((meal) => {
-                    const html = `
+        $(".invalid").addClass("d-none");
+        const mealId = document.querySelector(".meal");
+        mealId.addEventListener("click", async function () {
+          content.innerHTML = "";
+          $(".lds-ring").removeClass("d-none");
+          try {
+            const response = await fetch(
+              `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
+            );
+            const res = await response.json();
+            const meals = res.meals;
+            meals.splice(20);
+            meals.forEach((meal) => {
+              const html = `
          <div class="col-md-4 text-white">
-                      <img class="w-100 rounded-3" src=${meal.strMealThumb} alt="">
+                      <img class="w-100 rounded-3" src=${
+                        meal.strMealThumb
+                      } alt="">
                           <h2>${meal.strMeal}</h2>
                   </div>
                   <div class="col-md-8 text-white">
                       <h2>Instructions</h2>
                       <p>${meal.strInstructions}
       </p>
-                      <h3><span class="fw-bolder">Area : </span>${meal.strArea}</h3>
+                      <h3><span class="fw-bolder">Area : </span>${
+                        meal.strArea
+                      }</h3>
                       <h3><span class="fw-bolder">Category : </span>${
                         meal.strCategory
                       }</h3>
@@ -480,23 +475,301 @@ const areaFunction = async function () {
                   </div>
                   </div>
                   `;
-            content.insertAdjacentHTML("afterbegin", html);
-                  })
-                  
-                } catch {
-                  throw Error("Invalid API") 
-                }
-                finally{
-                  $(".lds-ring").addClass("d-none");
-                }
-              })
-    })
+              content.insertAdjacentHTML("afterbegin", html);
+            });
+          } catch {
+            throw Error("Invalid API");
+          } finally {
+            $(".lds-ring").addClass("d-none");
+          }
+        });
+      });
+    });
+  });
+};
+
+area.addEventListener("click", areaFunction);
+
+// ingredients Section
+const ingFunction = async function () {
+  serachDiv.classList.add("d-none");
+  content.innerHTML = "";
+  animation();
+  $(".lds-ring").removeClass("d-none");
+
+  const response = await fetch(
+    "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
+  );
+  const res = await response.json();
+  const ings = res.meals;
+  ings.splice(20);
+  $(".lds-ring").addClass("d-none");
+  ings.forEach((ing) => {
+    const html = `
+        <div class="col-md-3 ing">
+                <div class="rounded-2 text-center area text-white">
+                <i class="fa-solid fa-drumstick-bite fa-4x"></i>
+                        <h3>${ing.strIngredient}</h3>
+                        <p class = "overflow-hidden ingDes">${ing.strDescription}</p>
+                </div>
+    `;
+
+    content.insertAdjacentHTML("afterbegin", html);
+    const ingred = document.querySelector(".ing");
+
+    ingred.addEventListener("click", async function () {
+      content.innerHTML = "";
+      $(".lds-ring").removeClass("d-none");
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ing.strIngredient}`
+      );
+      const res = await response.json();
+      console.log(res);
+      const meals = res.meals;
+      $(".lds-ring").addClass("d-none");
+      meals.splice(20);
+      meals.forEach((meal) => {
+        const html = `
+               <div class="col-md-6 col-lg-4 col-xl-3 main position-relative">
+       <div class="position-relative h-100 overflow-hidden rounded-2 meal">
+             <img src=${meal.strMealThumb} width = "100%" height = "100%" alt="logo" />
+             <div
+               class="text w-100 h-100 ps-3 text-center d-flex align-items-center"
+             >
+               <h2 class = "pt-2">${meal.strMeal}</h2>
+             </div>
+           </div>
+           </div>
+      `;
+        content.insertAdjacentHTML("afterbegin", html);
+        $(".invalid").addClass("d-none");
+        const mealId = document.querySelector(".meal");
+        mealId.addEventListener("click", async function () {
+          content.innerHTML = "";
+          $(".lds-ring").removeClass("d-none");
+          try {
+            const response = await fetch(
+              `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
+            );
+            const res = await response.json();
+            const meals = res.meals;
+            meals.splice(20);
+            meals.forEach((meal) => {
+              const html = `
+         <div class="col-md-4 text-white">
+                      <img class="w-100 rounded-3" src=${
+                        meal.strMealThumb
+                      } alt="">
+                          <h2>${meal.strMeal}</h2>
+                  </div>
+                  <div class="col-md-8 text-white">
+                      <h2>Instructions</h2>
+                      <p>${meal.strInstructions}
+      </p>
+                      <h3><span class="fw-bolder">Area : </span>${
+                        meal.strArea
+                      }</h3>
+                      <h3><span class="fw-bolder">Category : </span>${
+                        meal.strCategory
+                      }</h3>
+                      <h3>Recipes :</h3>
+                      <ul class="list-unstyled d-flex g-3 flex-wrap">
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure1
+                          } ${meal.strIngredient1}</li>
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure2
+                          } ${meal.strIngredient2}</li>
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure3
+                          } ${meal.strIngredient3}</li>
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure4
+                          } ${meal.strIngredient4}</li>
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure5
+                          } ${meal.strIngredient5}</li>
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure6
+                          } ${meal.strIngredient6}</li>
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure7
+                          } ${meal.strIngredient7}</li>
+                          <li class="alert alert-info m-2 p-1">${
+                            meal.strMeasure8
+                          } ${meal.strIngredient8}</li>
+                      </ul>
       
-    })
+                      <h3>Tags :</h3>
+                      <ul class="list-unstyled d-flex g-3 flex-wrap">
+                           <li class="alert alert-danger m-2 p-1 px-2">${
+                             meal.strTags ? meal.strTags : "No Tags"
+                           }</li>
+    
+    
+                      </ul>
+      
+                      <a target="_blank" href=${
+                        meal.strSource
+                      } class="btn btn-success">Source</a>
+                      <a target="_blank" href=${
+                        meal.strYoutube
+                      } class="btn btn-danger">Youtube</a>
+                  </div>
+                  </div>
+                  `;
+              content.insertAdjacentHTML("afterbegin", html);
+            });
+          } catch {
+            throw Error("Invalid API");
+          } finally {
+            $(".lds-ring").addClass("d-none");
+          }
+        });
+      });
+    });
+  });
+};
+
+ingredients.addEventListener("click", ingFunction);
+
+// Contact Section
+const contactFunction = function () {
+  serachDiv.classList.add("d-none");
+  content.innerHTML = `
+  <div class="contact min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="container w-75 text-center">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <input id="nameInput" type="text" class="form-control" placeholder="Enter Your Name">
+                <div id="nameAlert" class="alert alert-danger w-100 mt-2 d-none">
+                    Special characters and numbers not allowed
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input id="emailInput" type="email" class="form-control " placeholder="Enter Your Email">
+                <div id="emailAlert" class="alert alert-danger w-100 mt-2 d-none">
+                    Email not valid *exemple@gmail.co
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input id="phoneInput" type="text" class="form-control " placeholder="Enter Your Phone">
+                <div id="phoneAlert" class="alert alert-danger w-100 mt-2 d-none">
+                    Enter valid Egyptian Phone Number
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input id="ageInput" type="number" class="form-control " placeholder="Enter Your Age">
+                <div id="ageAlert" class="alert alert-danger w-100 mt-2 d-none">
+                    Enter valid age
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input id="passwordInput" type="password" class="form-control " placeholder="Enter Your Password">
+                <div id="passwordAlert" class="alert alert-danger w-100 mt-2 d-none">
+                    Enter valid password *Minimum eight characters, at least one letter and one number:*
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input id="repasswordInput" type="password" class="form-control " placeholder="Repassword">
+                <div id="repasswordAlert" class="alert alert-danger w-100 mt-2 d-none">
+                    Enter valid repassword 
+                </div>
+            </div>
+        </div>
+        <button id="submitBtn" class="btn btn-outline-danger disabled px-2 mt-3">Submit</button>
+    </div>
+</div>`;
+  animation();
+
+  const name = document.getElementById("nameInput");
+  const email = document.getElementById("emailInput");
+  const phone = document.getElementById("phoneInput");
+  const age = document.getElementById("ageInput");
+  const password = document.getElementById("passwordInput");
+  const repassword = document.getElementById("repasswordInput");
+  const repasswordAlert = document.getElementById("repasswordAlert");
+  const submit = document.getElementById("submitBtn");
+  const inputs = document.querySelectorAll(".contact input");
+
+  function Validation(el, msg) {
+    let text = el.value;
+    const regex = {
+      nameInput: /^[A-Za-z ]+$/,
+      emailInput: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+      phoneInput: /^01[0125][0-9]{8}$/gm,
+      ageInput: /^\d{1,3}$/,
+      passwordInput: /^[a-zA-Z0-9!@#$%^&*]{8,32}$/,
+      repasswordInput: /^[a-zA-Z0-9!@#$%^&*]{8,32}$/,
+    };
+    let message = document.getElementById(msg);
+
+    if (regex[el.id].test(text) == true) {
+      el.classList.add("is-valid");
+      el.classList.remove("is-invalid");
+      message.classList.add("d-none");
+      el.classList.add("ok");
+    } else {
+      el.classList.remove("is-valid");
+      el.classList.add("is-invalid");
+      message.classList.remove("d-none");
+      el.classList.remove("ok");
+    }
+    inputs.forEach((input) => {
+      if (
+        inputs[0].classList.contains("ok") &&
+        inputs[1].classList.contains("ok") &&
+        inputs[2].classList.contains("ok") &&
+        inputs[3].classList.contains("ok") &&
+        inputs[4].classList.contains("ok") &&
+        inputs[5].classList.contains("ok") &&
+        repassword.value == password.value
+      ) {
+        submit.classList.remove("disabled");
+        submit.addEventListener("click" , function(){
+          input.value = null;
+          submit.classList.add("disabled");
+          input.classList.remove("is-valid");
+        })
+      } else {
+        submit.classList.add("disabled");
+      }
+    }
+  );
+  }
+
+  name.addEventListener("input", function () {
+    Validation(name, "nameAlert");
+  });
+  email.addEventListener("input", function () {
+    Validation(email, "emailAlert");
+  });
+  phone.addEventListener("input", function () {
+    Validation(phone, "phoneAlert");
+  });
+  age.addEventListener("input", function () {
+    Validation(age, "ageAlert");
+  });
+  password.addEventListener("input", function () {
+    Validation(password, "passwordAlert");
+  });
+  repassword.addEventListener("input", function () {
+    Validation(repassword, "repasswordAlert");
+    if (repassword.value == password.value) {
+      repassword.classList.add("is-valid");
+      repassword.classList.remove("is-invalid");
+      repasswordAlert.classList.add("d-none");
+      return true;
+    } else {
+      repassword.classList.remove("is-valid");
+      repassword.classList.add("is-invalid");
+      repasswordAlert.classList.remove("d-none");
+      return false;
+    }
   })
 
-  
- }
 
+   
+};
 
-area.addEventListener("click" , areaFunction)
+contact.addEventListener("click", contactFunction);
