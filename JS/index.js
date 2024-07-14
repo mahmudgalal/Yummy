@@ -44,28 +44,28 @@ const details = function(meal){
                 }</h3>
                 <h3>Recipes :</h3>
                 <ul class="list-unstyled d-flex g-3 flex-wrap">
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient1? "" : "d-none"}">${
                       meals[0].strMeasure1
                     } ${meals[0].strIngredient1}</li>
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient2? "" : "d-none"}">${
                       meals[0].strMeasure2
                     } ${meals[0].strIngredient2}</li>
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient3? "" : "d-none"}">${
                       meals[0].strMeasure3
                     } ${meals[0].strIngredient3}</li>
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient4? "" : "d-none"}">${
                       meals[0].strMeasure4
                     } ${meals[0].strIngredient4}</li>
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient5? "" : "d-none"}">${
                       meals[0].strMeasure5
                     } ${meals[0].strIngredient5}</li>
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient6? "" : "d-none"}">${
                       meals[0].strMeasure6
                     } ${meals[0].strIngredient6}</li>
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient7? "" : "d-none"}">${
                       meals[0].strMeasure7
                     } ${meals[0].strIngredient7}</li>
-                    <li class="alert alert-info m-2 p-1">${
+                    <li class="alert alert-info m-2 p-1 ${meals[0].strIngredient8? "" : "d-none"}">${
                       meals[0].strMeasure8
                     } ${meals[0].strIngredient8}</li>
                 </ul>
